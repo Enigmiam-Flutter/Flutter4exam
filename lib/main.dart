@@ -8,7 +8,8 @@ import 'dart:convert';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'firebase.dart';
-import 'firestore.dart';
+import 'Doctor.dart';
+import 'Patient.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -24,6 +25,8 @@ void main() {
       '/api': (context) => MyApp(),
       '/chat': (context) => FriendlyChatApp(),
       '/firebase': (context) => FirebaseApp(),
+      '/docteur': (context) => Doctor(),
+      '/patient': (context) => Patient(),
       //'/firestore': (context) => AddUser("roger ", "bob", 12),
     },
   ));
@@ -196,6 +199,20 @@ class FirstScreen extends StatelessWidget {
             onPressed: () {
               // Navigate to the second screen using a named route.
               Navigator.pushNamed(context, '/firebase');
+            },
+          ),
+          ElevatedButton(
+            child: Text('Login docteur'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/docteur');
+            },
+          ),
+          ElevatedButton(
+            child: Text('Login patient'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/patient');
             },
           ),
         ],
