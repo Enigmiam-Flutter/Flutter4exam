@@ -62,8 +62,24 @@ class _MyCustomFormState extends State<MyCustomForm> {
             TextField(
               controller: myController,
             ),
+            LoginBtn(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class LoginBtn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: ElevatedButton(
+        onPressed: () {
+          //createData();
+        },
+        child: const Text('Login !', style: TextStyle(fontSize: 20)),
       ),
     );
   }
