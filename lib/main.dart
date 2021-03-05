@@ -8,8 +8,8 @@ import 'dart:convert';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'firebase.dart';
-import 'Doctor.dart';
-import 'Patient.dart';
+import 'doctor.dart';
+import 'patient.dart';
 
 void main() {
   runApp(MaterialApp(
