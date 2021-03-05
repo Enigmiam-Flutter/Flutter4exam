@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+// ignore: must_be_immutable
 class MyImage extends StatelessWidget {
   var data;
   int i;
