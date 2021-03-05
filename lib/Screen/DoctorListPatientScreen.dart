@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Docteur.dart';
+
+var _doctor;
 
 class DoctorListPatient extends StatelessWidget {
   @override
@@ -36,18 +39,44 @@ class DoctorList extends StatelessWidget {
             if (i.isOdd) return Divider(); /*2*/
             final index = i ~/ 2; /*3*/
             if (index >= _DoctorList.length) {}
-            return _buildRow(_DoctorList[index].name);
+            return getData(context);
           }),
-      onTap: () =>
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Hello'))),
+      onTap: () => Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text('TODO redirect to another view'))),
     );
   }
 
-  Widget _buildRow(String doctor) {
-    return ListTile(
-      title: Text(
-        '123',
+  Widget _buildLigne(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('patient').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return getData(context);
+      },
+    );
+  }
+
+  Widget _buildRow(BuildContext context, List<DocumentSnapshot> snapshot) {
+    snapshot.map((data) {
+      //print(_doctor);
+      _doctor = Docteur.fromSnapshot(data);
+    }).toList();
+    return Container(
+      child: ListTile(
+        title: Text(
+          _doctor.username,
+        ),
       ),
     );
+  }
+
+  Widget getData(BuildContext context) {
+    Firestore.instance
+        .collection("patient")
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) => print('{${f.data.values}}'));
+    });
   }
 }
