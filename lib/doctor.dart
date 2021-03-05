@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-
 // ignore: must_be_immutable
-class MyImage extends StatelessWidget {
+class Doctor extends StatelessWidget {
   var data;
   int i;
 
-  MyImage(this.data, this.i);
 
   @override
   Widget build(BuildContext context) {

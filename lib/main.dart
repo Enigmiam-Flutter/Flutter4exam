@@ -9,7 +9,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import 'firebase.dart';
 import 'doctor.dart';
-import 'patient.dart';
+import 'PatientLoginScreen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -26,7 +26,7 @@ void main() {
       '/chat': (context) => FriendlyChatApp(),
       '/firebase': (context) => FirebaseApp(),
       '/docteur': (context) => Doctor(),
-      '/patient': (context) => Patient(),
+      '/patient': (context) => PatientLoginScreen(),
       //'/firestore': (context) => AddUser("roger ", "bob", 12),
     },
   ));
