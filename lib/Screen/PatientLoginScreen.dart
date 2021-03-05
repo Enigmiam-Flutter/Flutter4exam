@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_api_calls/Screen/PatientListDoctorScreen.dart';
 
 import 'DoctorListPatientScreen.dart';
 import '../chat.dart';
@@ -119,7 +120,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       if (patient.username == _username && patient.pwd == _pwd) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DoctorListPatient()),
+          MaterialPageRoute(builder: (context) => DoctorListScreen()),
         );
       } else {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Bad Login')));

@@ -4,22 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 
-import '../models/Docteur.dart';
-
-var _doctor;
 var patient;
 
-class PatientListScreen extends StatefulWidget {
+class DoctorListScreen extends StatefulWidget {
   @override
-  _PatientListScreenState createState() => _PatientListScreenState();
+  _DoctorListScreenState createState() => _DoctorListScreenState();
 }
 
-class _PatientListScreenState extends State<PatientListScreen> {
+class _DoctorListScreenState extends State<DoctorListScreen> {
   bool _progressController = true;
   StreamSubscription<QuerySnapshot> subscription;
   List<DocumentSnapshot> snapshot;
   CollectionReference collectionReference =
-      Firestore.instance.collection("patient");
+      Firestore.instance.collection("docteurs");
 
   @override
   void initState() {
@@ -36,7 +33,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Liste des patients'),
+        title: Text('Liste des docteurs'),
       ),
       body: _progressController
           ? CircularProgressIndicator()
