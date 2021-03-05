@@ -4,42 +4,32 @@ import 'package:flutter_api_calls/widgets/DatePicker.dart';
 import 'package:flutter_api_calls/widgets/TimePicker.dart';
 
 class RdvPatientScreen extends StatefulWidget {
-  String idDocteur;
-  String idPatient;
-
-  RdvPatientScreen({Key key, @required this.idDocteur, @required this.idPatient}) : super(key:key);
-
   @override
   _RdvPatientScreenState createState() => _RdvPatientScreenState();
 }
 
 class _RdvPatientScreenState extends State<RdvPatientScreen> {
-
-  final _formKey = GlobalKey<FormState>();
   DateTime selectedDate;
   TimeOfDay selectedHours;
+  final _formKey = GlobalKey<FormState>();
 
-  callbackDatePicker(pickedDate) {
+  callbackDatePicker(pickedDate){
     setState(() {
       selectedDate = pickedDate;
     });
   }
 
-  callbackTimePicker(pickedHour){
-    setState((){
-      selectedHours = pickedHour;
+  callbackTimePicker(pickedHours){
+    setState(() {
+      selectedHours = pickedHours;
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 35, right: 10, left: 10),
-      child: Scaffold(
-        appBar: AppBar(title: Text('Prendre un rendez vous'),),
-        body: _build(context),
-        
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Prendre un rendez vous'),),
+      body: _build(context),
+      
     );
   }
 
