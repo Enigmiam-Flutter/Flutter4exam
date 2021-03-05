@@ -9,7 +9,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import 'firebase.dart';
 import 'doctor.dart';
-import 'PatientLoginScreen.dart';
+import 'Screen/PatientLoginScreen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -25,7 +25,7 @@ void main() {
       '/api': (context) => MyApp(),
       '/chat': (context) => FriendlyChatApp(),
       '/firebase': (context) => FirebaseApp(),
-      '/docteur': (context) => Doctor(),
+      '/docteur': (context) => doctorLoginScreen(),
       '/patient': (context) => PatientLoginScreen(),
       //'/firestore': (context) => AddUser("roger ", "bob", 12),
     },
@@ -175,7 +175,7 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Options screen'),
+        title: Text('Screen'),
       ),
       body: Center(
           child: Column(

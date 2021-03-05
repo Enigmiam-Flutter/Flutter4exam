@@ -1,20 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_api_calls/models/Docteur.dart';
-import 'Screen/DoctorListPatientScreen.dart';
-import 'Screen/RdvListScreen.dart';
-import 'chat.dart';
+
+import 'DoctorListPatientScreen.dart';
+import '../models/Patient.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
 String _username;
 String _pwd;
-var doctor;
+var patient;
 
-void main() => runApp(doctorLoginScreen());
+void main() => runApp(RdvListScreen());
 
-class doctorLoginScreen extends StatelessWidget {
+class RdvListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -60,7 +59,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login doctor'),
+        title: Text('Login patient'),
       ),
       body: _build(context),
     );
@@ -68,7 +67,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   Widget _build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('docteurs').snapshots(),
+      stream: Firestore.instance.collection('patient').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -114,12 +113,12 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   void login(List<DocumentSnapshot> snapshot, BuildContext context) {
     snapshot.map((data) {
-      final doctor = Docteur.fromSnapshot(data);
+      final patient = Patient.fromSnapshot(data);
       print(_username);
-      if (doctor.username == _username && doctor.pwd == _pwd) {
+      if (patient.username == _username && patient.pwd == _pwd) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => RdvListScreen()),
+          MaterialPageRoute(builder: (context) => DoctorListPatient()),
         );
       } else {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Bad Login')));

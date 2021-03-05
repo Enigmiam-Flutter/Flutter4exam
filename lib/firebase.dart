@@ -70,7 +70,6 @@ class _PageHomeState extends State<PageHome> {
           ),
         ),
       ),
-      BottomBtn(),
     ]);
   }
 }

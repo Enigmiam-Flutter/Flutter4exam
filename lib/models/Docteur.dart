@@ -7,6 +7,8 @@ class Docteur {
   final String prenom;
   final DocumentReference reference;
 
+  Docteur({this.name, this.prenom, this.pwd, this.reference, this.username});
+
   Docteur.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['nom'] != null),
         assert(map['pwd'] != null),

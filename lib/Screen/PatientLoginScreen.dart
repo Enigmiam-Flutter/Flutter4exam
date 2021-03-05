@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-import 'chat.dart';
-import 'models/Patient.dart';
+import 'DoctorListPatientScreen.dart';
+import '../chat.dart';
+import '../models/Patient.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -82,17 +83,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            TextFormField(
+            TextField(
               decoration: new InputDecoration(labelText: 'Username'),
-              validator: (text) =>
-                  text.isEmpty ? 'Please enter your username' : null,
-              onSaved: (text) => _username = text,
+              onChanged: (text) => _username = text,
             ),
-            TextFormField(
+            TextField(
               decoration: new InputDecoration(labelText: 'Password'),
-              validator: (text) =>
-                  text.isEmpty ? 'Please enter your password' : null,
-              onSaved: (text) => _pwd = text,
+              onChanged: (text) => _pwd = text,
+              obscureText: true,
             ),
             _loginBtn(context, snapshot),
           ],
@@ -117,16 +115,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
   void login(List<DocumentSnapshot> snapshot, BuildContext context) {
     snapshot.map((data) {
       final patient = Patient.fromSnapshot(data);
+      print(_username);
       if (patient.username == _username && patient.pwd == _pwd) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => FriendlyChatApp()),
+          MaterialPageRoute(builder: (context) => DoctorListPatient()),
         );
       } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => FriendlyChatApp()),
-        );
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Bad Login')));
       }
     }).toList();
   }
