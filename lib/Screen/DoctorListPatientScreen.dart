@@ -20,7 +20,7 @@ class DoctorListPatient extends StatelessWidget {
 
   Widget _buildSuggestions() {
     return ListView.builder(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0), itemBuilder: (BuildContext context, int index) {  },
     );
   }
 }
