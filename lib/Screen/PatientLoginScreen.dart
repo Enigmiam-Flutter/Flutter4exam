@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-
-import 'DoctorListPatientScreen.dart';
-import '../chat.dart';
 import '../models/Patient.dart';
+import 'PatientBottomNavigationScreen.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
@@ -119,7 +117,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       if (patient.username == _username && patient.pwd == _pwd) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DoctorListPatient()),
+          MaterialPageRoute(builder: (context) => PatientBottomNav()),
         );
       } else {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Bad Login')));

@@ -118,7 +118,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       if (patient.username == _username && patient.pwd == _pwd) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DoctorListPatient()),
+          MaterialPageRoute(builder: (context) => PatientListScreen()),
         );
       } else {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Bad Login')));

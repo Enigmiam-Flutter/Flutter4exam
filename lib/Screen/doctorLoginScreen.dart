@@ -147,8 +147,4 @@ class _LoginPageState extends State<LoginPage> {
   void _createAccountPressed() {
     print('The user wants to create an accoutn with $_email and $_password');
   }
-
-  void _passwordReset() {
-    print("The user wants a password reset request sent to $_email");
-  }
 }
