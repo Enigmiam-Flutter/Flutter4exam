@@ -5,6 +5,7 @@ import 'package:flutter_api_calls/models/Docteur.dart';
 import 'Screen/DoctorBottomNavigationScreen.dart';
 import 'Screen/DoctorListPatientScreen.dart';
 
+import 'Screen/MainDoctorScreen.dart';
 import 'chat.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
@@ -15,6 +16,7 @@ var doctor;
 
 void main() => runApp(doctorLoginScreen());
 
+// ignore: camel_case_types
 class doctorLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -120,7 +122,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       if (doctor.username == _username && doctor.pwd == _pwd) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DoctorBottomNav()),
+          MaterialPageRoute(builder: (context) => MainDoctor()),
         );
       } else {
         Scaffold.of(context).showSnackBar(SnackBar(content: Text('Bad Login')));
