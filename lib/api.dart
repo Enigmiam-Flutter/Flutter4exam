@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_calls/chat.dart';
 import 'package:flutter_api_calls/image.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:webview_flutter/webview_flutter.dart';
-
-import 'firebase.dart';
-import 'doctor.dart';
-import 'Screen/PatientLoginScreen.dart';
 
 class ApiCall extends StatelessWidget {
   // This widget is the root of your application.

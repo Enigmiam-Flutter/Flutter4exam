@@ -2,11 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_api_calls/models/Docteur.dart';
-import 'Screen/DoctorBottomNavigationScreen.dart';
-import 'Screen/DoctorListPatientScreen.dart';
-
 import 'Screen/MainDoctorScreen.dart';
-import 'chat.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 

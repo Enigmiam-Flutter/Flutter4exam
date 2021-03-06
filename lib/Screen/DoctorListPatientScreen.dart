@@ -1,13 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_api_calls/models/Drawner.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 
-import '../models/Docteur.dart';
-
-var _doctor;
 var patient;
 
 class PatientListScreen extends StatefulWidget {

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/Screen/DoctorListPatientScreen.dart';
 import 'package:flutter_api_calls/models/Drawner.dart';
-
 import '../api.dart';
-import '../chat.dart';
-import '../main.dart';
 import 'PatientListDoctorScreen.dart';
 
 void main() => runApp(DoctorBottomNav());

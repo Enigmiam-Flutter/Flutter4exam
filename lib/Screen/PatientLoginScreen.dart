@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_api_calls/Screen/PatientListDoctorScreen.dart';
-
-import 'DoctorListPatientScreen.dart';
-import '../chat.dart';
 import '../models/Patient.dart';
 import 'PatientBottomNavigationScreen.dart';
 
