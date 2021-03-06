@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_calls/Screen/RdvPatientScreen.dart';
+import 'package:flutter_api_calls/Screen/doctorLoginScreen.dart';
 import 'package:flutter_api_calls/chat.dart';
 import 'api.dart';
 import 'firebase.dart';
@@ -19,7 +19,7 @@ void main() {
       '/api': (context) => ApiCall(),
       '/chat': (context) => FriendlyChatApp(),
       '/firebase': (context) => FirebaseApp(),
-      '/docteur': (context) => RdvPatientScreen(),
+      '/docteur': (context) => Doctor(),
       '/patient': (context) => PatientLoginScreen(),
       //'/firestore': (context) => AddUser("roger ", "bob", 12),
     },
