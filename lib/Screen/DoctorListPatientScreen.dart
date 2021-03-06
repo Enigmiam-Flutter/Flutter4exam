@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_api_calls/models/Drawner.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 
 import '../models/Docteur.dart';
@@ -35,9 +36,6 @@ class _PatientListScreenState extends State<PatientListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Liste des patients'),
-      ),
       body: _progressController
           ? CircularProgressIndicator()
           : Column(
