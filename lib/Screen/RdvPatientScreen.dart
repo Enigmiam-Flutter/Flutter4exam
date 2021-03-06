@@ -17,8 +17,6 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
   DateTime selectedDate;
   TimeOfDay selectedHours;
   final _formKey = GlobalKey<FormState>();
-  DateTime selectedDate;
-  TimeOfDay selectedHours;
 
   callbackDatePicker(pickedDate) {
     setState(() {
@@ -32,17 +30,6 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
     });
   }
 
-  callbackDatePicker(pickedDate){
-    setState(() {
-      selectedDate = pickedDate;
-    });
-  }
-
-  callbackTimePicker(pickedHours){
-    setState(() {
-      selectedHours = pickedHours;
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Padding(
