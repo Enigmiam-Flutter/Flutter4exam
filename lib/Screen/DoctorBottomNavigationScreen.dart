@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/Screen/DoctorListPatientScreen.dart';
+import 'package:flutter_api_calls/models/Drawner.dart';
 
+import '../api.dart';
+import '../chat.dart';
+import '../main.dart';
 import 'PatientListDoctorScreen.dart';
 
 void main() => runApp(DoctorBottomNav());
@@ -29,8 +33,6 @@ class MyStatefulWidget extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     Container(
       child: PatientListScreen(),
@@ -38,13 +40,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Container(
       child: DoctorListScreen(),
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
+    Container(
+      child: ApiCall(),
     ),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
+    Container(
+      child: DrawerApp(),
     ),
   ];
 
@@ -64,22 +64,22 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Docteur',
             backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Business',
+            label: 'Patient',
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            label: 'Patient',
+            label: 'IDK',
             backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Docteur',
+            label: 'Settings',
             backgroundColor: Colors.pink,
           ),
         ],
