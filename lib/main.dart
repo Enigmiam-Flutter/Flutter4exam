@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_calls/Screen/RdvPatientScreen.dart';
 import 'package:flutter_api_calls/chat.dart';
 import 'package:flutter_api_calls/image.dart';
 import 'dart:async';
@@ -8,7 +9,6 @@ import 'dart:convert';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'firebase.dart';
-import 'doctor.dart';
 import 'Screen/PatientLoginScreen.dart';
 
 void main() {
@@ -25,7 +25,7 @@ void main() {
       '/api': (context) => MyApp(),
       '/chat': (context) => FriendlyChatApp(),
       '/firebase': (context) => FirebaseApp(),
-      '/docteur': (context) => doctorLoginScreen(),
+      '/docteur': (context) => RdvPatientScreen(),
       '/patient': (context) => PatientLoginScreen(),
       //'/firestore': (context) => AddUser("roger ", "bob", 12),
     },

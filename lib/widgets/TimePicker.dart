@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:math' as math;
 import 'package:time_picker_widget/time_picker_widget.dart';
 
 class CustomTimePicker extends StatefulWidget {
+  Function(TimeOfDay) callback;
+
+  CustomTimePicker(this.callback);
+
   @override
   _CustomTimePickerState createState() => _CustomTimePickerState();
 }
@@ -13,33 +15,29 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
 
   List<int> _availableHours = [1, 4, 6, 8, 12];
   List<int> _availableMinutes = [0, 10, 30, 45, 50];
-  
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Center(
-          child: InkWell(
-            onTap: () =>
-                // DEMO --------------
-                showCustomTimePicker(
-                    context: context,
-                    // It is a must if you provide selectableTimePredicate
-                    onFailValidation: (context) =>
-                        showMessage(context, 'Unavailable selection.'),
-                    initialTime: TimeOfDay(
-                        hour: _availableHours.first,
-                        minute: _availableMinutes.first),
-                    selectableTimePredicate: (time) =>
-                        _availableHours.indexOf(time.hour) != -1 &&
-                        _availableMinutes.indexOf(time.minute) != -1).then(
-                    (time) =>
-                        setState(() => selectedTime = time?.format(context))),
+  Widget build(BuildContext context) => Center(
+        child: InkWell(
+          onTap: () => showCustomTimePicker(
+              context: context,
+              onFailValidation: (context) =>
+                  showMessage(context, 'Unavailable selection.'),
+              initialTime: TimeOfDay(
+                  hour: _availableHours.first, minute: _availableMinutes.first),
+              selectableTimePredicate: (time) =>
+                  _availableHours.indexOf(time.hour) != -1 &&
+                  _availableMinutes.indexOf(time.minute) != -1).then(
+            (time) => setState(() {
+              selectedTime = time.format(context);
+              widget.callback(time);
+            })),
             // --------------
 
             child: Text(
-              selectedTime ?? 'Select Time',
+              selectedTime ?? 'Choisir l\'heure',
               style: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
             ),
-          ),
         ),
       );
 
