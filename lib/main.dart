@@ -19,7 +19,7 @@ void main() {
       '/api': (context) => ApiCall(),
       '/chat': (context) => FriendlyChatApp(),
       '/firebase': (context) => FirebaseApp(),
-      '/docteur': (context) => Doctor(),
+      '/docteur': (context) => RdvPatientScreen(),
       '/patient': (context) => PatientLoginScreen(),
       //'/firestore': (context) => AddUser("roger ", "bob", 12),
     },
