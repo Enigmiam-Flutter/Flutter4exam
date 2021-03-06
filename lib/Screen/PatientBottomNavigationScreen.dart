@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_calls/Screen/DoctorListPatientScreen.dart';
 
 import 'PatientListDoctorScreen.dart';
 

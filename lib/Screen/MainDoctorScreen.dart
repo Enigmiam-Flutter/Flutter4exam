@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_calls/models/Drawner.dart';
-
 import 'DoctorBottomNavigationScreen.dart';
 
 void main() => runApp(MainDoctor());
