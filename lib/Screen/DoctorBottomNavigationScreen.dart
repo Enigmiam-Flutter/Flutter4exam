@@ -35,7 +35,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       child: PatientListScreen(),
     ),
     Container(
-      child: DoctorListScreen(),
+      child: PatientListScreen(),//DoctorListScreen(),
     ),
     Container(
       child: ApiCall(),

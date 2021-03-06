@@ -3,9 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 
+import 'PatientBottomNavigationScreen.dart';
+import 'RdvPatientScreen.dart';
+
 var patient;
+String globalId;
 
 class DoctorListScreen extends StatefulWidget {
+  String globalIdPatient;
+  DoctorListScreen(globalIdPatient);
   @override
   _DoctorListScreenState createState() => _DoctorListScreenState();
 }
@@ -20,6 +26,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
   @override
   void initState() {
     super.initState();
+    
     subscription = collectionReference.snapshots().listen((datasnapshot) {
       setState(() {
         snapshot = datasnapshot.documents;
@@ -39,12 +46,15 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
           : Column(
               children: [
                 ...(snapshot).map((data) {
-                  return Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.all(20),
-                      child: Text(Patient.fromSnapshot(data).prenom +
-                          ' ' +
-                          Patient.fromSnapshot(data).name));
+                  return InkWell(
+                        onTap: () => Navigator.push( context,MaterialPageRoute(builder: (context) => RdvPatientScreen(idDocteur: data.documentID))),
+                        child: Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(20),
+                        child: Text(Patient.fromSnapshot(data).prenom +
+                            ' ' +
+                            Patient.fromSnapshot(data).name)),
+                  );
                 }).toList()
               ],
             ),

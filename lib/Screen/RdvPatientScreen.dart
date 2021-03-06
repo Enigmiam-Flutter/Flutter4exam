@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/widgets/DatePicker.dart';
 import 'package:flutter_api_calls/widgets/TimePicker.dart';
 
+import 'PatientBottomNavigationScreen.dart';
+
 class RdvPatientScreen extends StatefulWidget {
   String idDocteur;
-  String idPatient;
 
-  RdvPatientScreen({Key key, @required this.idDocteur, @required this.idPatient}) : super(key:key);
+  RdvPatientScreen({this.idDocteur});
 
   @override
   _RdvPatientScreenState createState() => _RdvPatientScreenState();
@@ -65,9 +66,10 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
   void formHandler() {
     Duration duration = Duration(hours: selectedHours.hour, minutes: selectedHours.minute);
     selectedDate = selectedDate.add(duration);
+    print("test");
     var data = {
-      "IdD" : 'WY41ihBOYQ2cxd8hQrc4',
-      "IdP" : 'N0rjKUEAHPapS4oKJmzX',
+      "IdD" : widget.idDocteur,
+      "IdP" : globalIdPatient,
       "rdv": selectedDate.toString(),
     };
     Firestore.instance.collection("rdv").add(data).then((value) => print(value));
