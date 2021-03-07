@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_api_calls/Screen/PatientListDoctorScreen.dart';
+import 'package:flutter_api_calls/Screen/RdvDetailScreen.dart';
+import 'package:flutter_api_calls/models/Patient.dart';
 import 'package:flutter_api_calls/models/Rdv.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'DoctorLoginScreen.dart';
 
 // Example holidays
 final Map<DateTime, List> _holidays = {
@@ -39,9 +43,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   bool _progressController = true;
   StreamSubscription<QuerySnapshot> subscription;
+  StreamSubscription<QuerySnapshot> subscriptionPatient;
+
   List<DocumentSnapshot> snapshot;
   CollectionReference collectionReference =
       Firestore.instance.collection("rdv");
+  List<DocumentSnapshot> snapshotPatient;
+  CollectionReference collectionReferencePatient =
+      Firestore.instance.collection("patient");
 
   @override
   void initState() {
@@ -49,36 +58,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     subscription = collectionReference.snapshots().listen((datasnapshot) {
       setState(() {
         snapshot = datasnapshot.documents;
+      });
+    });
+
+    subscriptionPatient =
+        collectionReferencePatient.snapshots().listen((datasnapshotPatient) {
+      setState(() {
+        snapshotPatient = datasnapshotPatient.documents;
         _progressController = false;
       });
     });
-// Données brute pour la prise de rendez vous des patients
-    final _selectedDay = DateTime.now();
-    _events = {
-      _selectedDay.subtract(Duration(days: 2)): [
-        'Patient 6 - 15h',
-      ],
-      _selectedDay: [
-        'Patient 1 - 10h',
-        'Patient 11 - 12h',
-        'Patient 12 - 16h',
-      ],
-      _selectedDay.add(Duration(days: 1)): [
-        'Patient 2 - 10h',
-        'Patient 3 - 12h',
-      ],
-      _selectedDay.add(Duration(days: 3)): [
-        'Patient 4 - 9h',
-        'Patient 5 - 10h',
-      ],
-      _selectedDay.add(Duration(days: 9)): [
-        'Patient 7 - 9h',
-        'Patient 8 - 10h',
-        'Patient 9 - 14h',
-        'Patient 10 - 15h',
-      ],
-    };
 
+    _events = {};
     _selectedEvents = _events[dateToday] ?? [];
     _calendarController = CalendarController();
 
@@ -94,19 +85,33 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   /*Méthode qui récupère en base la liste de chaque patients et viens ajouter un evenement sur le calendrier */
 
-  void getRdv(BuildContext context) {
+  String _idPatient;
+  String _nomPatient;
+  String _prenomPatient;
+  String _idDoctorRdV;
+
+  getRdv(BuildContext context) {
     snapshot.map((data) {
+      _idDoctorRdV = Rdv.fromSnapshot(data).IdD;
+
+      snapshotPatient.map((patient) {
+        _idPatient = patient.documentID;
+        _nomPatient = Patient.fromSnapshot(patient).name;
+        _prenomPatient = Patient.fromSnapshot(patient).prenom;
+      }).toList();
+
       //Récupère la chaine de caractère de la date entière
       String fullRdv = Rdv.fromSnapshot(data).rdv;
-      //convertit en date la string
-      DateTime dateRdv = new DateFormat("yyyy-MM-dd hh:mm").parse(fullRdv);
-      DateTime heureRdv = new DateFormat("jm").parse(fullRdv);
-      int diffDate = dateToday.difference(dateRdv).inDays;
-
+      DateTime rdvDateTime = DateTime.parse(fullRdv);
+      // Récupère l'heure
+      String heureRdv = new DateFormat("jm").format(rdvDateTime);
       // Ajoute un event pour chaque patient trouvé, sous la forme {Nom} {Prenom} - {Heure}
-      _events[dateToday.add(Duration(days: diffDate))] = [
-        'Patient ' + ' - ' + heureRdv.toString()
-      ];
+      //Affiche seulement les patients du médecin concerné
+      if (_idDoctorRdV == doctorId) {
+        _events[rdvDateTime] = [
+          _nomPatient + '  ' + _prenomPatient + ' - ' + heureRdv
+        ];
+      }
     }).toList();
   }
 
@@ -207,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildButtons() {
-    final dateTime = _events.keys.elementAt(_events.length - 2);
+    //final dateTime = _events.keys.elementAt(_events.length - 2);
 
     return Column(
       children: <Widget>[
@@ -239,24 +244,27 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildEventList(BuildContext context) {
-    //getRdv(context);
+    getRdv(context);
     return ListView(
       children: _selectedEvents
           .map((event) => Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0.8),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                child: ListTile(
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.8),
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              child: ListTile(
                   title: Text(event.toString()),
-                  onTap: () =>
-                      // Afficher le détail du rendez vous
-
-                      print('$event tapped!'),
-                ),
-              ))
+                  onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  // Devrait récupérer l'id du RdV pour afficher les bonnes informations
+                                  RdvDetailScreen('kBESTqfdimmfTfzVpKsv')),
+                        )
+                      })))
           .toList(),
     );
   }
