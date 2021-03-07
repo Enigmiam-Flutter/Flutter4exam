@@ -50,6 +50,10 @@ Pour le côté médecin :
  - Username : alan
  - Mot de passe : 123 
 
+Pour accéder à Firebase : 
+
+  - Username : evalflutterenigma@gmail.coim
+  - Mot de passe : evalFlutter1
 
 ## Liens du projet
 
