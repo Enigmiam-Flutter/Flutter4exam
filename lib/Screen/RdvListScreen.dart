@@ -9,6 +9,9 @@ import 'package:flutter_api_calls/models/Docteur.dart';
 
 import 'PatientBottomNavigationScreen.dart';
 
+String _idDoctor;
+String _nameDoctor;
+
 class RdvListScreen extends StatefulWidget {
   RdvListScreen(String globalIdPatient);
 
@@ -56,21 +59,18 @@ class _RdvListScreenState extends State<RdvListScreen> {
               children: [
                 ...(snapshot).map((data) {
                   (snapshotDoc).map((doc) {
-                    if (Rdv.fromSnapshot(data).IdP == globalIdPatient) {
-                      if (Rdv.fromSnapshot(data).IdD == doc.documentID) {
-                        print("test " + Docteur.fromSnapshot(doc).name);
-                        return Container(
-                            width: double.infinity,
-                            margin: EdgeInsets.all(20),
-                            child: Text(Rdv.fromSnapshot(data).rdv +
-                                ' ' +
-                                Docteur.fromSnapshot(doc).name));
-                      }
-                    } else {
-                      return Container();
-                    }
+                    _idDoctor = doc.documentID;
+                    _nameDoctor = Docteur.fromSnapshot(doc).name;
                   }).toList();
-                  return Container();
+                  if (Rdv.fromSnapshot(data).IdP == globalIdPatient) {
+                    return Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.all(20),
+                        child: Text(
+                            Rdv.fromSnapshot(data).rdv + ' ' + _nameDoctor));
+                  } else {
+                    return Container();
+                  }
                 }).toList()
               ],
             ),
