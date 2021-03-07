@@ -9,6 +9,7 @@ final databaseReference = FirebaseDatabase.instance.reference();
 String _username;
 String _pwd;
 var doctor;
+String doctorId;
 
 class DoctorLoginScreen extends StatelessWidget {
   @override
@@ -111,8 +112,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
   void login(List<DocumentSnapshot> snapshot, BuildContext context) {
     snapshot.map((data) {
       final doctor = Docteur.fromSnapshot(data);
-      print(_username);
       if (doctor.username == _username && doctor.pwd == _pwd) {
+        doctorId = data.documentID;
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => MainDoctor()),

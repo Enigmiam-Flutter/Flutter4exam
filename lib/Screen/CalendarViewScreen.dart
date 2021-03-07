@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_api_calls/Screen/PatientListDoctorScreen.dart';
+import 'package:flutter_api_calls/models/Patient.dart';
 import 'package:flutter_api_calls/models/Rdv.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'DoctorLoginScreen.dart';
 
 // Example holidays
 final Map<DateTime, List> _holidays = {
@@ -39,9 +42,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   bool _progressController = true;
   StreamSubscription<QuerySnapshot> subscription;
+  StreamSubscription<QuerySnapshot> subscriptionPatient;
+
   List<DocumentSnapshot> snapshot;
   CollectionReference collectionReference =
       Firestore.instance.collection("rdv");
+  List<DocumentSnapshot> snapshotPatient;
+  CollectionReference collectionReferencePatient =
+      Firestore.instance.collection("patient");
 
   @override
   void initState() {
@@ -49,6 +57,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     subscription = collectionReference.snapshots().listen((datasnapshot) {
       setState(() {
         snapshot = datasnapshot.documents;
+      });
+    });
+
+    subscriptionPatient =
+        collectionReferencePatient.snapshots().listen((datasnapshotPatient) {
+      setState(() {
+        snapshotPatient = datasnapshotPatient.documents;
         _progressController = false;
       });
     });
@@ -69,14 +84,33 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   /*Méthode qui récupère en base la liste de chaque patients et viens ajouter un evenement sur le calendrier */
 
+  String _idPatient;
+  String _nomPatient;
+  String _prenomPatient;
+  String _idDoctorRdV;
+
   getRdv(BuildContext context) {
     snapshot.map((data) {
+      _idDoctorRdV = Rdv.fromSnapshot(data).IdD;
+
+      snapshotPatient.map((patient) {
+        _idPatient = patient.documentID;
+        _nomPatient = Patient.fromSnapshot(patient).name;
+        _prenomPatient = Patient.fromSnapshot(patient).prenom;
+      }).toList();
+
       //Récupère la chaine de caractère de la date entière
       String fullRdv = Rdv.fromSnapshot(data).rdv;
       DateTime rdvDateTime = DateTime.parse(fullRdv);
       String heureRdv = new DateFormat("jm").format(rdvDateTime);
       // Ajoute un event pour chaque patient trouvé, sous la forme {Nom} {Prenom} - {Heure}
-      _events[rdvDateTime] = ['Patient - ' + heureRdv];
+      print(_idDoctorRdV);
+      print(doctorId);
+      if (_idDoctorRdV == doctorId) {
+        _events[rdvDateTime] = [
+          _nomPatient + '  ' + _prenomPatient + ' - ' + heureRdv
+        ];
+      }
     }).toList();
   }
 
