@@ -80,6 +80,7 @@ class _RdvDetailScreenState extends State<RdvDetailScreen> {
       body: _progressController
       ? LinearProgressIndicator()
       :_build(context),
+      
     );
   }
 

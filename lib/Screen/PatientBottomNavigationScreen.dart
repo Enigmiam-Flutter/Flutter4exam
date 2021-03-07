@@ -14,6 +14,7 @@ class PatientBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     globalIdPatient = idPatient;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: _title,
       home: MyStatefulWidget(),
     );
