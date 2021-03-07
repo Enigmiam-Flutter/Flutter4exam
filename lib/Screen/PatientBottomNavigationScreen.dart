@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'PatientListDoctorScreen.dart';
+import 'RdvListScreen.dart';
 
 void main() => runApp(PatientBottomNav());
 
 String globalIdPatient;
+
 /// This is the main application widget.
 class PatientBottomNav extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
   var idPatient;
-  PatientBottomNav({Key key,  this.idPatient}) : super(key: key);
+  PatientBottomNav({Key key, this.idPatient}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     globalIdPatient = idPatient;
@@ -38,7 +40,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       child: DoctorListScreen(globalIdPatient),
     ),
     Container(
-      child: DoctorListScreen(globalIdPatient),
+      child: RdvListScreen(globalIdPatient),
     ),
     Text(
       'Index 2: School',
@@ -58,7 +60,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(globalIdPatient);
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
