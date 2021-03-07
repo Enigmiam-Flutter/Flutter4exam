@@ -25,8 +25,8 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
     });
   }
 
-  callbackTimePicker(pickedHour){
-    setState((){
+  callbackTimePicker(pickedHour) {
+    setState(() {
       selectedHours = pickedHour;
     });
   }
@@ -36,24 +36,25 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 35, right: 10, left: 10),
       child: Scaffold(
-        appBar: AppBar(title: Text('Prendre un rendez vous'),),
+        appBar: AppBar(
+          title: Text('Prendre un rendez vous'),
+        ),
         body: _build(context),
-        
       ),
     );
   }
 
-  Widget _build(BuildContext context){
+  Widget _build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Container(
-        child: Column( 
+        child: Column(
           children: [
             Container(child: DatePicker(callbackDatePicker)),
             Container(child: CustomTimePicker(callbackTimePicker)),
             Container(
               child: ElevatedButton(
-                onPressed: formHandler, 
+                onPressed: formHandler,
                 child: Text('Submit'),
               ),
             ),
@@ -64,14 +65,17 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
   }
 
   void formHandler() {
-    Duration duration = Duration(hours: selectedHours.hour, minutes: selectedHours.minute);
+    Duration duration =
+        Duration(hours: selectedHours.hour, minutes: selectedHours.minute);
     selectedDate = selectedDate.add(duration);
-    print("test");
     var data = {
-      "IdD" : widget.idDocteur,
-      "IdP" : globalIdPatient,
+      "IdD": widget.idDocteur,
+      "IdP": globalIdPatient,
       "rdv": selectedDate.toString(),
     };
-    Firestore.instance.collection("rdv").add(data).then((value) => print(value));
+    Firestore.instance
+        .collection("rdv")
+        .add(data)
+        .then((value) => print(value));
   }
 }
