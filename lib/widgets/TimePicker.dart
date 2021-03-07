@@ -36,7 +36,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
 
             child: Text(
               selectedTime ?? 'Choisir l\'heure',
-              style: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
         ),
       );

@@ -29,16 +29,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     Container(
-      child: DoctorListPatientScreen(),
-    ),
-    Container(
-      child: DoctorListPatientScreen(),//DoctorListScreen(),
-    ),
-    Container(
       child: CalendarViewScreen(),
     ),
     Container(
-      child: DrawerApp(),
+      child: DoctorListPatientScreen(),
     ),
   ];
 
@@ -57,25 +51,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Docteur',
-            backgroundColor: Colors.red,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Patient',
-            backgroundColor: Colors.green,
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
             label: 'Calendrier',
             backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.pink,
-          ),
+            icon: Icon(Icons.business),
+            label: 'Patient',
+            backgroundColor: Colors.green,
+          )
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],

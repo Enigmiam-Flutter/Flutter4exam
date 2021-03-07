@@ -57,7 +57,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login doctor'),
+        title: Text('Connexion docteur'),
       ),
       body: _build(context),
     );

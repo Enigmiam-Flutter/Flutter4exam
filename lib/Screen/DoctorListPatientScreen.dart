@@ -29,6 +29,7 @@ class _DoctorListPatientScreenState extends State<DoctorListPatientScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Liste des patients'),),
       body: _progressController
           ? CircularProgressIndicator()
           : Column(

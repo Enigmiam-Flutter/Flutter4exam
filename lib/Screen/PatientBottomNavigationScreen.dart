@@ -7,7 +7,7 @@ String globalIdPatient;
 
 /// This is the main application widget.
 class PatientBottomNav extends StatelessWidget {
-  static const String _title = 'Flutter Code Sample';
+  static const String _title = 'Patient Navigation Bottom Bar';
   var idPatient;
   PatientBottomNav({Key key, this.idPatient}) : super(key: key);
   @override
@@ -40,14 +40,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Container(
       child: RdvListScreen(globalIdPatient),
     ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
   ];
 
   void _onItemTapped(int index) {
@@ -73,16 +65,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             icon: Icon(Icons.business),
             label: 'RDV',
             backgroundColor: Colors.green,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'IDK',
-            backgroundColor: Colors.purple,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.pink,
           ),
         ],
         currentIndex: _selectedIndex,

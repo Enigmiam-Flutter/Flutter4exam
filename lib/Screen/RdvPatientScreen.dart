@@ -54,7 +54,9 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
             Container(child: DatePicker(callbackDatePicker)),
             Container(child: CustomTimePicker(callbackTimePicker)),
             Container(
+              width: 200,
               child: TextField(
+                decoration: InputDecoration(hintText: 'Description : '),
                 onChanged: (val) => userInputDescription = val,
               ),
             ),
@@ -75,7 +77,7 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
         Duration(hours: selectedHours.hour, minutes: selectedHours.minute);
     selectedDate = selectedDate.add(duration);
     var data = {
-      "Description": userInputDescription,
+      "Description": userInputDescription.length == 0 ? 'Pas de description' : userInputDescription,
       "IdD": widget.idDocteur,
       "IdP": globalIdPatient,
       "rdv": selectedDate.toString()

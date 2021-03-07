@@ -24,7 +24,7 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Page d'identification"),
+        title: Text("FindADoc"),
       ),
       body: Center(
           child: Column(

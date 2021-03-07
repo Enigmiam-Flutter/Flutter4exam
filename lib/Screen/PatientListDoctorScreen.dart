@@ -37,7 +37,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Liste des docteurs'),
+        title: Text('Choix du docteur'),
       ),
       body: _progressController
           ? CircularProgressIndicator()
