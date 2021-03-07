@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/Screen/PatientListDoctorScreen.dart';
+import 'package:flutter_api_calls/Screen/RdvDetailScreen.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 import 'package:flutter_api_calls/models/Rdv.dart';
 import 'package:intl/intl.dart';
@@ -102,10 +103,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       //Récupère la chaine de caractère de la date entière
       String fullRdv = Rdv.fromSnapshot(data).rdv;
       DateTime rdvDateTime = DateTime.parse(fullRdv);
+      // Récupère l'heure
       String heureRdv = new DateFormat("jm").format(rdvDateTime);
       // Ajoute un event pour chaque patient trouvé, sous la forme {Nom} {Prenom} - {Heure}
-      print(_idDoctorRdV);
-      print(doctorId);
+      //Affiche seulement les patients du médecin concerné
       if (_idDoctorRdV == doctorId) {
         _events[rdvDateTime] = [
           _nomPatient + '  ' + _prenomPatient + ' - ' + heureRdv
@@ -247,51 +248,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     return ListView(
       children: _selectedEvents
           .map((event) => Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0.8),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                child: ListTile(
-                    title: Text(event.toString()),
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                            _buildPopupDialog(context),
-                      );
-                    }),
-              ))
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.8),
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              child: ListTile(
+                  title: Text(event.toString()),
+                  onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  // Devrait récupérer l'id du RdV pour afficher les bonnes informations
+                                  RdvDetailScreen('kBESTqfdimmfTfzVpKsv')),
+                        )
+                      })))
           .toList(),
-    );
-  }
-
-  String _description;
-
-  Widget _buildPopupDialog(BuildContext context) {
-    snapshot.map((data) {
-      _description = Rdv.fromSnapshot(data).desc;
-    }).toList();
-
-    return new AlertDialog(
-      title: const Text('Description'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(_description),
-        ],
-      ),
-      actions: <Widget>[
-        FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Fermer'),
-        ),
-      ],
     );
   }
 }
