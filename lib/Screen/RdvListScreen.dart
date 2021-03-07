@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_api_calls/Screen/doctorLoginScreen.dart';
+import 'package:flutter_api_calls/doctor.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 import 'package:flutter_api_calls/models/Rdv.dart';
+import 'package:flutter_api_calls/models/Docteur.dart';
 
 import 'PatientBottomNavigationScreen.dart';
 
@@ -16,9 +19,13 @@ class RdvListScreen extends StatefulWidget {
 class _RdvListScreenState extends State<RdvListScreen> {
   bool _progressController = true;
   StreamSubscription<QuerySnapshot> subscription;
+  StreamSubscription<QuerySnapshot> subscriptiondoc;
   List<DocumentSnapshot> snapshot;
   CollectionReference collectionReference =
       Firestore.instance.collection("rdv");
+  List<DocumentSnapshot> snapshotDoc;
+  CollectionReference collectionReferenceDoc =
+      Firestore.instance.collection("docteurs");
 
   @override
   void initState() {
@@ -26,6 +33,12 @@ class _RdvListScreenState extends State<RdvListScreen> {
     subscription = collectionReference.snapshots().listen((datasnapshot) {
       setState(() {
         snapshot = datasnapshot.documents;
+      });
+    });
+    subscriptiondoc =
+        collectionReferenceDoc.snapshots().listen((datasnapshotdoc) {
+      setState(() {
+        snapshotDoc = datasnapshotdoc.documents;
         _progressController = false;
       });
     });
@@ -41,18 +54,23 @@ class _RdvListScreenState extends State<RdvListScreen> {
           ? CircularProgressIndicator()
           : Column(
               children: [
-                // ignore: missing_return
                 ...(snapshot).map((data) {
-                  if (Rdv.fromSnapshot(data).IdP == globalIdPatient) {
-                    return Container(
-                        width: double.infinity,
-                        margin: EdgeInsets.all(20),
-                        child: Text(Rdv.fromSnapshot(data).rdv +
-                            ' ' +
-                            Rdv.fromSnapshot(data).IdD));
-                  } else {
-                    return Container();
-                  }
+                  (snapshotDoc).map((doc) {
+                    if (Rdv.fromSnapshot(data).IdP == globalIdPatient) {
+                      if (Rdv.fromSnapshot(data).IdD == doc.documentID) {
+                        print("test " + Docteur.fromSnapshot(doc).name);
+                        return Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.all(20),
+                            child: Text(Rdv.fromSnapshot(data).rdv +
+                                ' ' +
+                                Docteur.fromSnapshot(doc).name));
+                      }
+                    } else {
+                      return Container();
+                    }
+                  }).toList();
+                  return Container();
                 }).toList()
               ],
             ),
