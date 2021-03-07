@@ -29,6 +29,8 @@ flutter pub get
 
  - Dans le calendrier, rendre le onTap d'un rendez-vous dynamique en donnant l'id du rendez-vous.
  - Faire plus de design, afin que l'application soit plus agréable à utiliser.
+ - Notifier lors de la création d'un rdv
+ - onTap sur la liste des patients la liste des patients pour afficher les précèdents rdv
  - Changer l'icône de l'application
 
 
