@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
-
-import 'PatientBottomNavigationScreen.dart';
 import 'RdvPatientScreen.dart';
 
 var patient;

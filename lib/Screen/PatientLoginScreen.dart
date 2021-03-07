@@ -10,8 +10,6 @@ String _username;
 String _pwd;
 var patient;
 
-void main() => runApp(PatientLoginScreen());
-
 class PatientLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_calls/chat.dart';
-import 'api.dart';
-import 'doctor.dart';
-import 'firebase.dart';
+import 'Screen/DoctorLoginScreen.dart';
 import 'Screen/PatientLoginScreen.dart';
 
 void main() {
@@ -15,11 +12,7 @@ void main() {
     routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
       '/': (context) => FirstScreen(),
-      // When navigating to the "/second" route, build the SecondScreen widget.
-      '/api': (context) => ApiCall(),
-      '/chat': (context) => FriendlyChatApp(),
-      '/firebase': (context) => FirebaseApp(),
-      '/docteur': (context) => doctorLoginScreen(),
+      '/docteur': (context) => DoctorLoginScreen(),
       '/patient': (context) => PatientLoginScreen(),
       //'/firestore': (context) => AddUser("roger ", "bob", 12),
     },

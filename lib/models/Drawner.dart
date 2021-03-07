@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/Screen/DoctorListPatientScreen.dart';
 
-void main() => runApp(DrawerApp());
-
 class DrawerApp extends StatelessWidget {
   final appTitle = 'Inbox';
 
@@ -96,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Container(
             height: 500,
-            child: PatientListScreen(),
+            child: DoctorListPatientScreen(),
           ),
         ],
       ),

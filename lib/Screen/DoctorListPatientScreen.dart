@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 
-class PatientListScreen extends StatefulWidget {
+class DoctorListPatientScreen extends StatefulWidget {
   @override
-  _PatientListScreenState createState() => _PatientListScreenState();
+  _DoctorListPatientScreenState createState() => _DoctorListPatientScreenState();
 }
 
-class _PatientListScreenState extends State<PatientListScreen> {
+class _DoctorListPatientScreenState extends State<DoctorListPatientScreen> {
   bool _progressController = true;
   StreamSubscription<QuerySnapshot> subscription;
   List<DocumentSnapshot> snapshot;

@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_api_calls/Screen/doctorLoginScreen.dart';
-import 'package:flutter_api_calls/doctor.dart';
+import 'package:flutter_api_calls/Screen/DoctorLoginScreen.dart';
 import 'package:flutter_api_calls/models/Patient.dart';
 import 'package:flutter_api_calls/models/Rdv.dart';
 import 'package:flutter_api_calls/models/Docteur.dart';

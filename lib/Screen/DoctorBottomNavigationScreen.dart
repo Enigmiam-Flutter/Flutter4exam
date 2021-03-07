@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_calls/Screen/CalendarViewScreen.dart';
 import 'package:flutter_api_calls/Screen/DoctorListPatientScreen.dart';
 import 'package:flutter_api_calls/models/Drawner.dart';
-import '../api.dart';
-import 'PatientListDoctorScreen.dart';
-
-void main() => runApp(DoctorBottomNav());
 
 /// This is the main application widget.
 class DoctorBottomNav extends StatelessWidget {
@@ -32,13 +29,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     Container(
-      child: PatientListScreen(),
+      child: DoctorListPatientScreen(),
     ),
     Container(
-      child: PatientListScreen(),//DoctorListScreen(),
+      child: DoctorListPatientScreen(),//DoctorListScreen(),
     ),
     Container(
-      child: ApiCall(),
+      child: CalendarViewScreen(),
     ),
     Container(
       child: DrawerApp(),
@@ -70,8 +67,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'IDK',
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendrier',
             backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(

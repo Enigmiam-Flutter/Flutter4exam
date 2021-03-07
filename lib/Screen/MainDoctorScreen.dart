@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'DoctorBottomNavigationScreen.dart';
 
-void main() => runApp(MainDoctor());
-
 class MainDoctor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

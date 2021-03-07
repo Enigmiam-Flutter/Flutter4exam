@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'PatientListDoctorScreen.dart';
 import 'RdvListScreen.dart';
 
-void main() => runApp(PatientBottomNav());
-
 String globalIdPatient;
 
 /// This is the main application widget.
