@@ -52,33 +52,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         _progressController = false;
       });
     });
-// Données brute pour la prise de rendez vous des patients
-    final _selectedDay = DateTime.now();
-    _events = {
-      _selectedDay.subtract(Duration(days: 2)): [
-        'Patient 6 - 15h',
-      ],
-      _selectedDay: [
-        'Patient 1 - 10h',
-        'Patient 11 - 12h',
-        'Patient 12 - 16h',
-      ],
-      _selectedDay.add(Duration(days: 1)): [
-        'Patient 2 - 10h',
-        'Patient 3 - 12h',
-      ],
-      _selectedDay.add(Duration(days: 3)): [
-        'Patient 4 - 9h',
-        'Patient 5 - 10h',
-      ],
-      _selectedDay.add(Duration(days: 9)): [
-        'Patient 7 - 9h',
-        'Patient 8 - 10h',
-        'Patient 9 - 14h',
-        'Patient 10 - 15h',
-      ],
-    };
 
+    _events = {};
     _selectedEvents = _events[dateToday] ?? [];
     _calendarController = CalendarController();
 
@@ -94,19 +69,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   /*Méthode qui récupère en base la liste de chaque patients et viens ajouter un evenement sur le calendrier */
 
-  void getRdv(BuildContext context) {
+  getRdv(BuildContext context) {
     snapshot.map((data) {
       //Récupère la chaine de caractère de la date entière
       String fullRdv = Rdv.fromSnapshot(data).rdv;
-      //convertit en date la string
-      DateTime dateRdv = new DateFormat("yyyy-MM-dd hh:mm").parse(fullRdv);
-      DateTime heureRdv = new DateFormat("jm").parse(fullRdv);
-      int diffDate = dateToday.difference(dateRdv).inDays;
-
+      DateTime rdvDateTime = DateTime.parse(fullRdv);
+      String heureRdv = new DateFormat("jm").format(rdvDateTime);
       // Ajoute un event pour chaque patient trouvé, sous la forme {Nom} {Prenom} - {Heure}
-      _events[dateToday.add(Duration(days: diffDate))] = [
-        'Patient ' + ' - ' + heureRdv.toString()
-      ];
+      _events[rdvDateTime] = ['Patient - ' + heureRdv];
     }).toList();
   }
 
@@ -207,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildButtons() {
-    final dateTime = _events.keys.elementAt(_events.length - 2);
+    //final dateTime = _events.keys.elementAt(_events.length - 2);
 
     return Column(
       children: <Widget>[
@@ -239,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildEventList(BuildContext context) {
-    //getRdv(context);
+    getRdv(context);
     return ListView(
       children: _selectedEvents
           .map((event) => Container(
@@ -250,14 +220,44 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-                  title: Text(event.toString()),
-                  onTap: () =>
-                      // Afficher le détail du rendez vous
-
-                      print('$event tapped!'),
-                ),
+                    title: Text(event.toString()),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            _buildPopupDialog(context),
+                      );
+                    }),
               ))
           .toList(),
+    );
+  }
+
+  String _description;
+
+  Widget _buildPopupDialog(BuildContext context) {
+    snapshot.map((data) {
+      _description = Rdv.fromSnapshot(data).desc;
+    }).toList();
+
+    return new AlertDialog(
+      title: const Text('Description'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(_description),
+        ],
+      ),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Fermer'),
+        ),
+      ],
     );
   }
 }
