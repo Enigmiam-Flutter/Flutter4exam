@@ -17,6 +17,7 @@ class RdvPatientScreen extends StatefulWidget {
 class _RdvPatientScreenState extends State<RdvPatientScreen> {
   DateTime selectedDate;
   TimeOfDay selectedHours;
+  String userInputDescription;
   final _formKey = GlobalKey<FormState>();
 
   callbackDatePicker(pickedDate) {
@@ -53,6 +54,11 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
             Container(child: DatePicker(callbackDatePicker)),
             Container(child: CustomTimePicker(callbackTimePicker)),
             Container(
+              child: TextField(
+                onChanged: (val) => userInputDescription = val,
+              ),
+            ),
+            Container(
               child: ElevatedButton(
                 onPressed: formHandler,
                 child: Text('Submit'),
@@ -69,9 +75,10 @@ class _RdvPatientScreenState extends State<RdvPatientScreen> {
         Duration(hours: selectedHours.hour, minutes: selectedHours.minute);
     selectedDate = selectedDate.add(duration);
     var data = {
+      "Description": userInputDescription,
       "IdD": widget.idDocteur,
       "IdP": globalIdPatient,
-      "rdv": selectedDate.toString(),
+      "rdv": selectedDate.toString()
     };
     Firestore.instance
         .collection("rdv")
